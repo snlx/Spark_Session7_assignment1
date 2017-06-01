@@ -1,0 +1,8 @@
+1. Store data in sequence file format
+val input =sc.parallelize(List((2,"Fitness"), (3,"Footwear"),(4,"Apparel")))
+input.saveAsSequenceFile("/home/SeqFile")
+cloudera@quickstart ~]$ hdfs dfs -ls /home/SeqFile/
+
+2. Read sequence file data
+val result = sc.sequenceFile("/home/SeqFile/part-00000", classOf[IntWritable], classOf[Text]). map{case (x, y) => (x.get(),y.toString)}
+result.foreach(println)
